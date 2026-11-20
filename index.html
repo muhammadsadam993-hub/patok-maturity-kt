@@ -63,7 +63,7 @@ h2{font-size:20px;line-height:1.1;margin:28px 40px 12px}
 .pick a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 footer{padding:18px 40px 26px;border-top:3px solid var(--ink);font-size:13px;color:var(--mut);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .empty{margin:0 40px;padding:16px;background:var(--card);color:var(--mut)}
-.emb{color:var(--pr);display:inline-flex;line-height:0}.edge{position:fixed;top:0;bottom:0;width:30px;z-index:5;pointer-events:none;background:var(--frond) repeat-y 0 0/30px auto}.edge.l{left:max(0px,calc(50% - 310px))}.edge.r{right:max(0px,calc(50% - 310px));transform:scaleX(-1)}.body{background:var(--wav) repeat-y center top/100% auto}@media(min-width:600px){.edge{width:44px;background-size:44px auto}}
+.emb{color:var(--pr);display:inline-flex;line-height:0}.edge{position:fixed;top:0;bottom:0;width:34px;z-index:5;pointer-events:none;background:var(--band) repeat-y 0 0/34px auto}.edge.l{left:max(0px,calc(50% - 310px))}.edge.r{right:max(0px,calc(50% - 310px));transform:scaleX(-1)}footer{position:relative;border-top:0!important;color:#fff!important;background:var(--swoosh) no-repeat center bottom/100% 100%;padding-top:74px!important;min-height:150px;align-items:flex-end}@media(min-width:600px){.edge{width:44px;background-size:44px auto}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.code,.st{opacity:1;transform:none}}
 </style>
 </head>
@@ -71,20 +71,14 @@ footer{padding:18px 40px 26px;border-top:3px solid var(--ink);font-size:13px;col
 <div class="edge l" aria-hidden="true"></div><div class="edge r" aria-hidden="true"></div><div class="wrap" id="app"></div>
 <script>
 {
-const G=['#1F6B3A','#3E8E41','#6BAF4E'],S=Math.sin,C=Math.cos,PI=Math.PI,f=n=>n.toFixed(1);
-function leaf(bx,by,ang,L,dr,w,fill){const a=ang*PI/180,tx=bx+L*C(a),ty=by-L*S(a)+dr,a2=(ang+14)*PI/180,cx=bx+.55*L*C(a2),cy=by-.55*L*S(a2),dx=tx-bx,dy=ty-by,n=Math.hypot(dx,dy)||1,nx=-dy/n*w,ny=dx/n*w;
-return [`<path d="M${f(bx)} ${f(by)}Q${f(cx+nx)} ${f(cy+ny)} ${f(tx)} ${f(ty)}Q${f(cx-nx)} ${f(cy-ny)} ${f(bx)} ${f(by)}Z" fill="${fill}"/><path d="M${f(bx)} ${f(by)}Q${f(cx)} ${f(cy)} ${f(tx)} ${f(ty)}" fill="none" stroke="rgba(255,255,255,.75)" stroke-width=".8" stroke-dasharray="2.4 1.8"/>`,tx,ty];}
-function frond(H,W,seed){let p='';const rx=y=>18+9*S(2*PI*y/H+seed);let pts=[];for(let y=0;y<=H;y+=4)pts.push(f(rx(y))+','+y);
-p+=`<polyline points="${pts.join(' ')}" fill="none" stroke="#5B4126" stroke-width="3.2" stroke-linecap="round"/>`;
-let y=H-4,i=0;while(y>4){const x=rx(y),sw=10*S(2*PI*y/H*2+seed);for(const sd of [1,-1]){const L=34+12*S(i*.7+seed+sd),ang=sd==1?48+sw:180-52-sw,[q,tx,ty]=leaf(x,y,ang,L,7+4*S(i*.5),4.2,G[(i+(sd>0?1:0))%3]);p+=q;if(sd==1&&i%4==1)p+=`<circle cx="${f(tx+3)}" cy="${f(ty+1)}" r="1.7" fill="#E8B53A"/>`;}y-=9.5;i++;}
-const yy=H/2,x=rx(yy);p+=`<circle cx="${f(x)}" cy="${yy}" r="7.5" fill="#fff" stroke="#5B4126" stroke-width="1.6"/>`;for(const [dx,dy] of [[0,-3.2],[3.2,0],[0,3.2],[-3.2,0]])p+=`<ellipse cx="${f(x+dx)}" cy="${f(yy+dy)}" rx="${dx?2.6:1.7}" ry="${dx?1.7:2.6}" fill="${G[0]}"/>`;
-return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${p}</svg>`;}
-function waves(W,H,col,seed,op){let p='';for(let b=0;b<5;b++){const base=H*(b+.6)/5.2,amp=26+10*S(b+seed),ph=seed*.7+b*1.3;for(let k=0;k<4;k++){let d=[];for(let x=0;x<=W+20;x+=20){const v=base+k*7+amp*S(x/W*2*PI*1.3+ph)+8*S(x/W*2*PI*3.1+ph*2);d.push((x?'L':'M')+x+' '+f(v));}
-p+=`<path d="${d.join(' ')}" fill="none" stroke="${col}" stroke-width="${k?1:2}" opacity="${k?op*.7:op}"/>`;}
-for(let c=0;c<3;c++){const xc=(c+.5)*W/3+40*S(b*2+c+seed),yc=base+amp*S(xc/W*2*PI*1.3+ph)-10;for(const r of [10,6,2.5])p+=`<circle cx="${f(xc)}" cy="${f(yc)}" r="${r}" fill="none" stroke="${col}" stroke-width="1.2" opacity="${op}"/>`;}}
-return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${p}</svg>`;}
+const DG='#0E4D2A',LG='#2FA84F',FG='#5CC46A',S=Math.sin,C=Math.cos,PI=Math.PI,f=n=>n.toFixed(1),sv=(W,H,p)=>`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${p}</svg>`;
+function band(H,W){const xi=y=>24+6*S(2*PI*y/H);let a='M0 0',b='M0 0';for(let y=0;y<=H;y+=5){a+=` L${f(xi(y)+7)} ${y}`;b+=` L${f(xi(y))} ${y}`;}return sv(W,H,`<path d="${a} L0 ${H}Z" fill="${LG}"/><path d="${b} L0 ${H}Z" fill="${DG}"/>`);}
+function frond(x0,y0,x1,y1,n,Lm,fl){let p='';const mx=(x0+x1)/2+(fl?-30:30),my=(y0+y1)/2+24,pt=t=>[(1-t)**2*x0+2*(1-t)*t*mx+t*t*x1,(1-t)**2*y0+2*(1-t)*t*my+t*t*y1];let q=[];for(let i=0;i<=30;i++)q.push(pt(i/30).map(f).join(','));p+=`<polyline points="${q.join(' ')}" fill="none" stroke="${FG}" stroke-width="2.6"/>`;
+for(let i=0;i<n;i++){const t=.08+.9*i/(n-1),[bx,by]=pt(t),[ax,ay]=pt(Math.min(1,t+.01));let dx=ax-bx,dy=ay-by,d=Math.hypot(dx,dy)||1;dx/=d;dy/=d;const L=Lm*(.35+.65*S(PI*Math.min(1,t*1.05)));for(const sd of [1,-1]){const g=40*sd*PI/180,lx=dx*C(g)-dy*S(g),ly=dx*S(g)+dy*C(g),tx=bx+lx*L,ty=by+ly*L,cx=bx+lx*L*.5+sd*dy*3,cy=by+ly*L*.5-sd*dx*3,nx=-ly*3.6,ny=lx*3.6;
+p+=`<path d="M${f(bx)} ${f(by)}Q${f(cx+nx)} ${f(cy+ny)} ${f(tx)} ${f(ty)}Q${f(cx-nx)} ${f(cy-ny)} ${f(bx)} ${f(by)}Z" fill="${(i+(sd>0?1:0))%2?FG:LG}"/><path d="M${f(bx+lx*L*.12)} ${f(by+ly*L*.12)}L${f(bx+lx*L*.85)} ${f(by+ly*L*.85)}" stroke="${DG}" stroke-width=".8" stroke-dasharray="2.4 1.8"/>`;}}return p;}
+function swoosh(W,H){const yb=40,bt=x=>yb+22*S(PI*x/W*1.15)-30*(x/W)**2.2;let a='M0 0',b='M0 0';for(let x=0;x<=W;x+=10){a+=` L${x} ${f(bt(x)-8)}`;b+=` L${x} ${f(bt(x))}`;}return sv(W,H,`<path d="${a} L${W} ${H} L0 ${H}Z" fill="${LG}"/><path d="${b} L${W} ${H} L0 ${H}Z" fill="${DG}"/>${frond(W-190,H+4,W-8,H-120,14,46)}${frond(150,H+4,8,H-100,10,38,1)}`);}
 const u=x=>`url("data:image/svg+xml,${encodeURIComponent(x)}")`,R=document.documentElement.style;
-R.setProperty('--frond',u(frond(190,66,.4)));R.setProperty('--wav',u(waves(600,700,'#1E6142',1.2,.16)));
+R.setProperty('--band',u(band(190,40)));R.setProperty('--swoosh',u(swoosh(600,150)));
 }
 
 {
@@ -144,7 +138,7 @@ function view(b){
 
   app.innerHTML = `
   <header class="hero" style="--pr:${b.col}">${topo(i * 3 + 11)}
-    <div class="brand"><span class="emb"><svg role='img' aria-label='Logo KLK' width='44' height='44' viewBox='0 0 100 100'><circle cx='50' cy='58' r='33' fill='none' stroke='#FFFFFF' stroke-width='9'/><path d='M50 1 Q46 46 3 90 Q50 76 97 90 Q54 46 50 1 Z' fill='#FFFFFF' stroke='currentColor' stroke-width='6' stroke-linejoin='miter' paint-order='stroke'/><rect x='38' y='48' width='24' height='22' rx='4' fill='none' stroke='currentColor' stroke-width='2.2'/><text x='50' y='66.5' text-anchor='middle' font-family='Archivo, Arial, sans-serif' font-weight='800' font-size='15' fill='currentColor' letter-spacing='-0.8' transform='translate(50 59) scale(0.82 1.25) translate(-50 -59)'>KLK</text></svg></span><b>KLK</b><i></i><span>SWP Kebun Timur<br>Patok maturity</span></div>
+    <div class="brand"><span class="emb"><svg role='img' aria-label='Logo KLK' width='44' height='44' viewBox='0 0 100 100'><circle cx='50' cy='56' r='33' fill='none' stroke='#FFFFFF' stroke-width='8.5'/><path d='M50 0 Q45 48 2 92 Q50 70 98 92 Q55 48 50 0 Z' fill='#FFFFFF' stroke='currentColor' stroke-width='7' stroke-linejoin='miter' paint-order='stroke'/><text x='50' y='72' text-anchor='middle' font-family='Big Shoulders Display, Arial Narrow, sans-serif' font-weight='900' font-size='25' fill='currentColor' letter-spacing='0.5' transform='translate(50 72) scale(0.78 1.45) translate(-50 -72)'>KLK</text></svg></span><b>KLK</b><i></i><span>SWP Kebun Timur<br>Patok maturity</span></div>
     <div class="code">${b.b}</div>
     <div class="meta"><div>Tanam pokok<strong>${longD(b.tanam)}</strong></div><span class="status" style="--sc:${sc}">${status}</span></div>
   </header>
@@ -189,7 +183,7 @@ function view(b){
 
 function index(){
   app.innerHTML = `<header class="hero" style="--pr:#141414;min-height:260px">${topo(5)}
-    <div class="brand"><span class="emb"><svg role='img' aria-label='Logo KLK' width='44' height='44' viewBox='0 0 100 100'><circle cx='50' cy='58' r='33' fill='none' stroke='#FFFFFF' stroke-width='9'/><path d='M50 1 Q46 46 3 90 Q50 76 97 90 Q54 46 50 1 Z' fill='#FFFFFF' stroke='currentColor' stroke-width='6' stroke-linejoin='miter' paint-order='stroke'/><rect x='38' y='48' width='24' height='22' rx='4' fill='none' stroke='currentColor' stroke-width='2.2'/><text x='50' y='66.5' text-anchor='middle' font-family='Archivo, Arial, sans-serif' font-weight='800' font-size='15' fill='currentColor' letter-spacing='-0.8' transform='translate(50 59) scale(0.82 1.25) translate(-50 -59)'>KLK</text></svg></span><b>KLK</b><i></i><span>SWP Kebun Timur<br>Patok maturity</span></div>
+    <div class="brand"><span class="emb"><svg role='img' aria-label='Logo KLK' width='44' height='44' viewBox='0 0 100 100'><circle cx='50' cy='56' r='33' fill='none' stroke='#FFFFFF' stroke-width='8.5'/><path d='M50 0 Q45 48 2 92 Q50 70 98 92 Q55 48 50 0 Z' fill='#FFFFFF' stroke='currentColor' stroke-width='7' stroke-linejoin='miter' paint-order='stroke'/><text x='50' y='72' text-anchor='middle' font-family='Big Shoulders Display, Arial Narrow, sans-serif' font-weight='900' font-size='25' fill='currentColor' letter-spacing='0.5' transform='translate(50 72) scale(0.78 1.45) translate(-50 -72)'>KLK</text></svg></span><b>KLK</b><i></i><span>SWP Kebun Timur<br>Patok maturity</span></div>
     <div class="code" style="font-size:clamp(72px,20vw,110px)">PR23–26</div></header>
     <h2>Pilih blok</h2><div class="pick">${['PR23', 'PR24', 'PR25', 'PR26'].map(g => `<div><p>${g.slice(0, 2)} ${g.slice(2)}</p><nav>${B.filter(x => x.pr === g).map(x => `<a href="#blok-${x.b.toLowerCase()}" style="background:${x.col}">${x.b}</a>`).join('')}</nav></div>`).join('')}</div>
     <footer><span>PT Steelindo Wahana Perkasa · KLK Group</span><span>Data per November 2026</span></footer>`;
