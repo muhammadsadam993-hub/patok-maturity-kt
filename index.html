@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Patok Maturity KT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Big+Shoulders+Display:wght@800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: field-operational, direct, proud — the digital twin of the physical stake.
+   IDEA: a surveyor's stake that comes alive when scanned: the ruler fills to today's month.
+   PICTURE: the block code on its PR colour field with contour lines + an animated growth stake.
+   COLOUR and TYPE: PR colour field (green/ochre/blue/olive), ink, white, harvest gold; Big Shoulders + Archivo + Plex Mono.
+   LAYOUT: one phone column: hero, harvest countdown, live stake timeline, block data, block switcher. */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#101210);--ink:light-dark(#141414,#eef0ec);--mut:light-dark(#4a5059,#a9afa8);--line:light-dark(#d4d7da,#2c302c);--card:light-dark(#f4f5f3,#181b18);--gold:#e8b53a;--pr:#1e6142}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Archivo,system-ui,sans-serif;overflow-x:clip}
+.wrap{max-width:620px;margin:0 auto}
+.hero{position:relative;overflow:hidden;background:var(--pr);color:#fff;padding:22px 40px 26px;min-height:360px;display:flex;flex-direction:column;justify-content:space-between}
+.hero svg.topo{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.brand{position:relative;display:flex;align-items:center;gap:12px;font-weight:700;font-size:13px;line-height:1.3}
+.brand b{font:900 34px/1 "Big Shoulders Display",sans-serif;letter-spacing:1px}
+.brand i{width:2px;height:30px;background:rgba(255,255,255,.55)}
+.code{position:relative;font:900 clamp(150px,46vw,220px)/.8 "Big Shoulders Display",sans-serif;letter-spacing:-3px;margin-top:24px;transform:translateY(40px);opacity:0;transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .9s}
+.on .code{transform:none;opacity:1}
+.meta{position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-top:14px;font-size:14px}
+.meta strong{display:block;font:600 22px/1.2 "IBM Plex Mono",monospace}
+.status{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;background:#fff;color:#141414;font-weight:800;font-size:14px;padding:8px 12px}
+.status::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--sc,#d06a12);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{transform:scale(1.6);opacity:.4}}
+.harvest{background:#141414;color:#fff;padding:22px 40px;display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:end}
+.harvest .lbl{font-weight:800;font-size:15px;color:#fff}
+.harvest .big{grid-column:1/-1;font:900 clamp(64px,19vw,96px)/.9 "Big Shoulders Display",sans-serif;color:var(--gold)}
+.harvest .cd{font:600 15px/1.3 "IBM Plex Mono",monospace;color:#fff;border:2px solid var(--gold);padding:6px 10px;white-space:nowrap}
+.prog{padding:22px 40px 6px}
+.bar{position:relative;height:14px;background:var(--card);overflow:hidden}
+.bar span{position:absolute;inset:0 auto 0 0;width:0;background:linear-gradient(90deg,#b9bec5 0 var(--a),#d06a12 var(--a) var(--s),#d9a520 var(--s));transition:width 1.6s cubic-bezier(.3,.7,.2,1) .4s}
+.ptxt{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);margin-top:6px}
+.ptxt b{color:var(--ink)}
+h2{font-size:20px;line-height:1.1;margin:28px 40px 12px}
+.tl{position:relative;margin:0 40px;padding-left:34px}
+.tl::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:4px;background:var(--line)}
+.tl .fill{position:absolute;left:11px;top:6px;width:4px;height:0;background:var(--ink);transition:height 1.8s cubic-bezier(.3,.7,.2,1) .5s}
+.st{position:relative;display:flex;justify-content:space-between;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);opacity:0;transform:translateX(16px);transition:.5s}
+.on .st{opacity:1;transform:none}
+.st::before{content:"";position:absolute;left:-30px;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:var(--bg);border:3px solid var(--c)}
+.st.done::before{background:var(--c)}
+.st.now::before{box-shadow:0 0 0 6px color-mix(in srgb,var(--c) 30%,transparent);animation:pulse 1.6s infinite}
+.st .n{font-weight:800;font-size:15px}.st .n small{display:block;font-weight:600;font-size:13px;color:var(--mut)}
+.st .d{font:600 15px "IBM Plex Mono",monospace;color:var(--c);white-space:nowrap}
+.st.now .d{background:var(--c);color:#fff;padding:2px 6px}
+.data{margin:0 40px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.data div{background:var(--bg);padding:12px}
+.data span{display:block;font-size:13px;color:var(--mut);font-weight:600}
+.data b{font-size:20px;line-height:1.2}
+.data .w{grid-column:1/-1}
+.pick{margin:0 40px 30px;display:grid;gap:14px}
+.pick p{margin:0 0 6px;font-weight:800;font-size:14px}
+.pick nav{display:flex;flex-wrap:wrap;gap:8px}
+.pick a{display:inline-flex;align-items:center;justify-content:center;min-width:64px;min-height:44px;padding:0 12px;font:800 20px "Big Shoulders Display",sans-serif;color:#fff;text-decoration:none}
+.pick a[aria-current]{outline:3px solid var(--ink);outline-offset:2px}
+.pick a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+footer{padding:18px 40px 26px;border-top:3px solid var(--ink);font-size:13px;color:var(--mut);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.empty{margin:0 40px;padding:16px;background:var(--card);color:var(--mut)}
+.emb{color:var(--pr);display:inline-flex;line-height:0}.edge{position:fixed;top:0;bottom:0;width:30px;z-index:5;pointer-events:none;background:var(--frond) repeat-y 0 0/30px auto}.edge.l{left:max(0px,calc(50% - 310px))}.edge.r{right:max(0px,calc(50% - 310px));transform:scaleX(-1)}.body{background:var(--wav) repeat-y center top/100% auto}@media(min-width:600px){.edge{width:44px;background-size:44px auto}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.code,.st{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="edge l" aria-hidden="true"></div><div class="edge r" aria-hidden="true"></div><div class="wrap" id="app"></div>
+<script>
+{
+const G=['#1F6B3A','#3E8E41','#6BAF4E'],S=Math.sin,C=Math.cos,PI=Math.PI,f=n=>n.toFixed(1);
+function leaf(bx,by,ang,L,dr,w,fill){const a=ang*PI/180,tx=bx+L*C(a),ty=by-L*S(a)+dr,a2=(ang+14)*PI/180,cx=bx+.55*L*C(a2),cy=by-.55*L*S(a2),dx=tx-bx,dy=ty-by,n=Math.hypot(dx,dy)||1,nx=-dy/n*w,ny=dx/n*w;
+return [`<path d="M${f(bx)} ${f(by)}Q${f(cx+nx)} ${f(cy+ny)} ${f(tx)} ${f(ty)}Q${f(cx-nx)} ${f(cy-ny)} ${f(bx)} ${f(by)}Z" fill="${fill}"/><path d="M${f(bx)} ${f(by)}Q${f(cx)} ${f(cy)} ${f(tx)} ${f(ty)}" fill="none" stroke="rgba(255,255,255,.75)" stroke-width=".8" stroke-dasharray="2.4 1.8"/>`,tx,ty];}
+function frond(H,W,seed){let p='';const rx=y=>18+9*S(2*PI*y/H+seed);let pts=[];for(let y=0;y<=H;y+=4)pts.push(f(rx(y))+','+y);
+p+=`<polyline points="${pts.join(' ')}" fill="none" stroke="#5B4126" stroke-width="3.2" stroke-linecap="round"/>`;
+let y=H-4,i=0;while(y>4){const x=rx(y),sw=10*S(2*PI*y/H*2+seed);for(const sd of [1,-1]){const L=34+12*S(i*.7+seed+sd),ang=sd==1?48+sw:180-52-sw,[q,tx,ty]=leaf(x,y,ang,L,7+4*S(i*.5),4.2,G[(i+(sd>0?1:0))%3]);p+=q;if(sd==1&&i%4==1)p+=`<circle cx="${f(tx+3)}" cy="${f(ty+1)}" r="1.7" fill="#E8B53A"/>`;}y-=9.5;i++;}
+const yy=H/2,x=rx(yy);p+=`<circle cx="${f(x)}" cy="${yy}" r="7.5" fill="#fff" stroke="#5B4126" stroke-width="1.6"/>`;for(const [dx,dy] of [[0,-3.2],[3.2,0],[0,3.2],[-3.2,0]])p+=`<ellipse cx="${f(x+dx)}" cy="${f(yy+dy)}" rx="${dx?2.6:1.7}" ry="${dx?1.7:2.6}" fill="${G[0]}"/>`;
+return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${p}</svg>`;}
+function waves(W,H,col,seed,op){let p='';for(let b=0;b<5;b++){const base=H*(b+.6)/5.2,amp=26+10*S(b+seed),ph=seed*.7+b*1.3;for(let k=0;k<4;k++){let d=[];for(let x=0;x<=W+20;x+=20){const v=base+k*7+amp*S(x/W*2*PI*1.3+ph)+8*S(x/W*2*PI*3.1+ph*2);d.push((x?'L':'M')+x+' '+f(v));}
+p+=`<path d="${d.join(' ')}" fill="none" stroke="${col}" stroke-width="${k?1:2}" opacity="${k?op*.7:op}"/>`;}
+for(let c=0;c<3;c++){const xc=(c+.5)*W/3+40*S(b*2+c+seed),yc=base+amp*S(xc/W*2*PI*1.3+ph)-10;for(const r of [10,6,2.5])p+=`<circle cx="${f(xc)}" cy="${f(yc)}" r="${r}" fill="none" stroke="${col}" stroke-width="1.2" opacity="${op}"/>`;}}
+return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${p}</svg>`;}
+const u=x=>`url("data:image/svg+xml,${encodeURIComponent(x)}")`,R=document.documentElement.style;
+R.setProperty('--frond',u(frond(190,66,.4)));R.setProperty('--wav',u(waves(600,700,'#1E6142',1.2,.16)));
+}
+
+{
+const B = [{"pr": "PR23", "b": "23A", "tanam": "Feb 24", "abl": "Apr 25", "csi": "Jul 25", "stop": "Jun 26", "rnd": "15 R", "prun": "Jul 26", "naa": "Jul 26", "pol": "Kaolin + NAA (>+4)", "panen": "Jan 27", "mh": "36 bulan", "ha": "114", "clone": "AAR", "pkk": 17714, "sph": 155, "col": "#1E6142"}, {"pr": "PR23", "b": "23B", "tanam": "Mar 24", "abl": "Mei 25", "csi": "Agu 25", "stop": "Apr 26", "rnd": "12 R", "prun": "Mei 26", "naa": "Mei 26", "pol": "Kaolin + NAA (>+4)", "panen": "Nov 26", "mh": "33 bulan", "ha": "109", "clone": "AAR", "pkk": 16879, "sph": 155, "col": "#1E6142"}, {"pr": "PR23", "b": "23C", "tanam": "Mar 24", "abl": "Mei 25", "csi": "Agu 25", "stop": "Jul 26", "rnd": "15 R", "prun": "Agu 26", "naa": "Okt 26", "pol": "Kaolin + NAA (>+4)", "panen": "Feb 27", "mh": "36 bulan", "ha": "110", "clone": "AAR", "pkk": 16639, "sph": 151, "col": "#1E6142"}, {"pr": "PR23", "b": "23D", "tanam": "Mar 24", "abl": "Mei 25", "csi": "Agu 25", "stop": "Jul 26", "rnd": "15 R", "prun": "Agu 26", "naa": "Okt 26", "pol": "Kaolin + NAA (>+4)", "panen": "Feb 27", "mh": "36 bulan", "ha": "76", "clone": "AAR", "pkk": 11748, "sph": 155, "col": "#1E6142"}, {"pr": "PR23", "b": "23E", "tanam": "Feb 24", "abl": "Apr 25", "csi": "Jul 25", "stop": "Jun 26", "rnd": "15 R", "prun": "Jul 26", "naa": "Agu 26", "pol": "Kaolin + NAA (>+4)", "panen": "Jan 27", "mh": "36 bulan", "ha": "53", "clone": "AAR", "pkk": 8085, "sph": 153, "col": "#1E6142"}, {"pr": "PR24", "b": "24A", "tanam": "Jun 24", "abl": "Agu 25", "csi": "Nov 25", "stop": "Jul 26", "rnd": "12 R", "prun": "Agu 26", "naa": "Okt 26", "pol": "Liquid NAA (>+4)", "panen": "Feb 27", "mh": "33 bulan", "ha": "66", "clone": "AAR", "pkk": 10268, "sph": 156, "col": "#97600A"}, {"pr": "PR24", "b": "24B", "tanam": "Jul 24", "abl": "Sep 25", "csi": "Des 25", "stop": "Agu 26", "rnd": "12 R", "prun": "Sep 26", "naa": "Nov 26", "pol": "Kaolin + NAA (>+4)", "panen": "Mar 27", "mh": "33 bulan", "ha": "60", "clone": "AAR", "pkk": 9335, "sph": 156, "col": "#97600A"}, {"pr": "PR24", "b": "24C", "tanam": "Sep 24", "abl": "Nov 25", "csi": "Feb 26", "stop": "Okt 26", "rnd": "12 R", "prun": "Nov 26", "naa": "-", "pol": "-", "panen": "Mei 27", "mh": "33 bulan", "ha": "107", "clone": "AAR", "pkk": 16610, "sph": 155, "col": "#97600A"}, {"pr": "PR24", "b": "24D", "tanam": "Okt 24", "abl": "Des 25", "csi": "Mar 26", "stop": "Nov 26", "rnd": "12 R", "prun": "Des 26", "naa": "-", "pol": "-", "panen": "Jun 27", "mh": "33 bulan", "ha": "87", "clone": "AAR", "pkk": 13435, "sph": 154, "col": "#97600A"}, {"pr": "PR25", "b": "25A", "tanam": "Mar 25", "abl": "Mei 26", "csi": "Agu 26", "stop": "Jul 27", "rnd": "15 R", "prun": "Agu 27", "naa": "-", "pol": "-", "panen": "Feb 28", "mh": "36 bulan", "ha": "83", "clone": "TOPAZ", "pkk": 11841, "sph": 132, "col": "#1D5A85"}, {"pr": "PR25", "b": "25B", "tanam": "Apr 25", "abl": "Jun 26", "csi": "Sep 26", "stop": "Agu 27", "rnd": "15 R", "prun": "Sep 27", "naa": "-", "pol": "-", "panen": "Mar 28", "mh": "36 bulan", "ha": "61", "clone": "AAR & DM", "pkk": 9160, "sph": 131, "col": "#1D5A85"}, {"pr": "PR25", "b": "25C", "tanam": "Agu 25", "abl": "Okt 26", "csi": "Jan 27", "stop": "Des 27", "rnd": "15 R", "prun": "Jan 28", "naa": "-", "pol": "-", "panen": "Jul 28", "mh": "36 bulan", "ha": "68", "clone": "TOPAZ & AAR", "pkk": 9751, "sph": 146, "col": "#1D5A85"}, {"pr": "PR26", "b": "26A", "tanam": "Des 25", "abl": "Feb 27", "csi": "Mei 27", "stop": "-", "rnd": "-", "prun": "-", "naa": "-", "pol": "-", "panen": "-", "mh": "", "ha": "50", "clone": "AAR", "pkk": 7305, "sph": 153, "col": "#5E5A1A"}, {"pr": "PR26", "b": "26B", "tanam": "Jan 26", "abl": "Mar 27", "csi": "Jun 27", "stop": "-", "rnd": "-", "prun": "-", "naa": "-", "pol": "-", "panen": "-", "mh": "", "ha": "27", "clone": "TOPAZ & DM IRG", "pkk": 3659, "sph": 105, "col": "#5E5A1A"}, {"pr": "PR26", "b": "26C", "tanam": "-", "abl": "-", "csi": "-", "stop": "-", "rnd": "-", "prun": "-", "naa": "-", "pol": "-", "panen": "-", "mh": "", "ha": "108", "clone": "AAR, TOPAZ & DM IRG", "pkk": 15347, "sph": 148, "col": "#5E5A1A"}];
+const MI = {Jan:0,Feb:1,Mar:2,Apr:3,Mei:4,Jun:5,Jul:6,Agu:7,Sep:8,Okt:9,Nov:10,Des:11};
+const LONG = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const ix = s => (!s || s === '-') ? null : (2000 + +s.split(' ')[1]) * 12 + MI[s.split(' ')[0]];
+const longD = s => { const i = ix(s); return i == null ? '—' : LONG[i % 12] + ' ' + Math.floor(i / 12); };
+const nd = v => (v == null || v === '-' || v === '') ? '—' : v;
+const now = new Date(); const NOW = now.getFullYear() * 12 + now.getMonth();
+const app = document.getElementById('app');
+
+function topo(seed){
+  let p = '';
+  const cx = 300 + (seed * 37) % 160, cy = 80 + (seed * 53) % 160;
+  for (let k = 1; k < 13; k++) {
+    let pts = [];
+    for (let a = 0; a <= 72; a++) {
+      const t = a / 72 * Math.PI * 2, r = 30 * k * (1 + .1 * Math.sin(3 * t + seed + k * .35) + .06 * Math.sin(5 * t - seed * .7));
+      pts.push((cx + r * Math.cos(t) * 1.25).toFixed(1) + ',' + (cy + r * Math.sin(t)).toFixed(1));
+    }
+    p += `<polygon points="${pts.join(' ')}" fill="none" stroke="rgba(255,255,255,${k % 4 ? .13 : .25})" stroke-width="${k % 4 ? 1 : 1.6}"/>`;
+  }
+  return `<svg class="topo" viewBox="0 0 400 380" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${p}</svg>`;
+}
+
+function view(b){
+  const i = B.indexOf(b), t = ix(b.tanam);
+  const map = t == null ? null : NOW - t + 1;
+  const M = s => { const v = ix(s); return (v == null || t == null) ? null : v - t + 1; };
+  const steps = [
+    ['Tanam pokok', 'Bulan ke-1', b.tanam, '#5f6670'],
+    ['Mulai ablasi', '15 MAP', b.abl, '#d06a12'],
+    ['CSI', 'Canopy Size Index · drone', b.csi, '#1f6f95'],
+    ['Stop ablasi', b.rnd !== '-' ? 'Total ' + b.rnd : '', b.stop, '#b23a0c'],
+    ['Sanitasi pruning', '', b.prun, '#3d6b47'],
+    ['NAA commercial', b.pol !== '-' ? b.pol : '', b.naa, '#6a4a86'],
+    ['Panen', b.mh || '', b.panen, '#a87c0e']
+  ].filter(s => ix(s[2]) != null).sort((a, c) => ix(a[2]) - ix(c[2]));
+  let nowIdx = -1; steps.forEach((s, k) => { if (ix(s[2]) <= NOW) nowIdx = k; });
+  const mA = M(b.abl), mS = M(b.stop), mH = M(b.panen);
+  let status = 'Jadwal belum tersedia', sc = '#8a9099';
+  if (map != null) {
+    if (mH != null && map >= mH) { status = 'Sudah masuk panen'; sc = '#e8b53a'; }
+    else if (mS != null && map >= mS) { status = 'Menuju panen'; sc = '#d9a520'; }
+    else if (mA != null && map >= mA) { status = 'Fase ablasi'; sc = '#d06a12'; }
+    else if (map >= 1) { status = 'TBM'; sc = '#8a9bb0'; }
+    else { status = 'Belum tanam'; }
+  }
+  const left = ix(b.panen) == null ? null : ix(b.panen) - NOW;
+  const cd = left == null ? '' : left > 0 ? `${left} bulan lagi` : left === 0 ? 'Bulan ini' : 'Sudah panen';
+  const end = mH || 36;
+  const pct = map == null ? 0 : Math.max(0, Math.min(100, map / end * 100));
+  const a = mA ? (mA / end * 100) : 100, s = mS ? (mS / end * 100) : 100;
+  const pk = String(b.pkk).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  const groups = ['PR23', 'PR24', 'PR25', 'PR26'].map(g => `<div><p>${g.slice(0, 2)} ${g.slice(2)}</p><nav>${B.filter(x => x.pr === g).map(x => `<a href="#blok-${x.b.toLowerCase()}" style="background:${x.col}" ${x === b ? 'aria-current="page"' : ''}>${x.b}</a>`).join('')}</nav></div>`).join('');
+
+  app.innerHTML = `
+  <header class="hero" style="--pr:${b.col}">${topo(i * 3 + 11)}
+    <div class="brand"><span class="emb"><svg role='img' aria-label='Logo KLK' width='44' height='44' viewBox='0 0 100 100'><circle cx='50' cy='58' r='33' fill='none' stroke='#FFFFFF' stroke-width='9'/><path d='M50 1 Q46 46 3 90 Q50 76 97 90 Q54 46 50 1 Z' fill='#FFFFFF' stroke='currentColor' stroke-width='6' stroke-linejoin='miter' paint-order='stroke'/><rect x='38' y='48' width='24' height='22' rx='4' fill='none' stroke='currentColor' stroke-width='2.2'/><text x='50' y='66.5' text-anchor='middle' font-family='Archivo, Arial, sans-serif' font-weight='800' font-size='15' fill='currentColor' letter-spacing='-0.8' transform='translate(50 59) scale(0.82 1.25) translate(-50 -59)'>KLK</text></svg></span><b>KLK</b><i></i><span>SWP Kebun Timur<br>Patok maturity</span></div>
+    <div class="code">${b.b}</div>
+    <div class="meta"><div>Tanam pokok<strong>${longD(b.tanam)}</strong></div><span class="status" style="--sc:${sc}">${status}</span></div>
+  </header>
+  <section class="harvest" aria-label="Bulan panen">
+    <span class="lbl">Bulan panen</span>${cd ? `<span class="cd">${cd}</span>` : '<span></span>'}
+    <span class="big">${ix(b.panen) == null ? 'Belum dijadwalkan' : longD(b.panen)}</span>
+  </section>
+  <div class="body">${map != null && map >= 1 ? `<div class="prog"><div class="bar"><span id="bar" style="--a:${a}%;--s:${s}%"></span></div>
+    <div class="ptxt"><span>Bulan ke-<b>${map}</b> dari ${end}</span><span>${Math.round(pct)}% menuju panen</span></div></div>` : ''}
+  <h2>Lini masa maturing</h2>
+  ${steps.length ? `<div class="tl"><span class="fill" id="fill"></span>${steps.map((st, k) => `<div class="st ${k < nowIdx ? 'done' : k === nowIdx ? 'done now' : ''}" style="--c:${st[3]};transition-delay:${.3 + k * .12}s"><div class="n">${st[0]}${st[1] ? `<small>${st[1]}</small>` : ''}</div><div class="d">${st[2]}</div></div>`).join('')}</div>` : '<p class="empty">Jadwal kegiatan maturing untuk blok ini belum tersedia.</p>'}
+  <h2>Data blok</h2>
+  <div class="data">
+    <div><span>Field / Ha</span><b>${b.b} / ${b.ha} Ha</b></div>
+    <div><span>SPH</span><b>${b.sph}</b></div>
+    <div class="w"><span>Clone</span><b>${b.clone}</b></div>
+    <div><span>Jumlah pokok</span><b>${pk}</b></div>
+    <div><span>Round ablasi</span><b>${nd(b.rnd)}</b></div>
+    <div><span>Periode ablasi</span><b>${b.abl !== '-' ? b.abl + ' – ' + (b.stop !== '-' ? b.stop : '…') : '—'}</b></div>
+    <div><span>CSI · drone</span><b>${nd(b.csi)}</b></div>
+    <div><span>Sanitasi pruning</span><b>${nd(b.prun)}</b></div>
+    <div><span>NAA commercial</span><b>${nd(b.naa)}</b></div>
+    <div class="w"><span>Polination type</span><b>${nd(b.pol)}</b></div>
+  </div>
+  <h2>Blok lain</h2>
+  <div class="pick">${groups}</div>
+  <footer><span>PT Steelindo Wahana Perkasa · KLK Group</span><span>Data per November 2026</span></footer></div>`;
+
+  document.title = 'Patok ' + b.b + ' · KT';
+  window.scrollTo(0, 0);
+  app.classList.remove('on');
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    app.classList.add('on');
+    const bar = document.getElementById('bar'); if (bar) bar.style.width = pct + '%';
+    const fill = document.getElementById('fill');
+    if (fill && nowIdx >= 0) {
+      const rows = fill.parentNode.querySelectorAll('.st'), r = rows[nowIdx];
+      fill.style.height = (r.offsetTop + r.offsetHeight / 2 - 6) + 'px';
+    }
+  }));
+}
+
+function index(){
+  app.innerHTML = `<header class="hero" style="--pr:#141414;min-height:260px">${topo(5)}
+    <div class="brand"><span class="emb"><svg role='img' aria-label='Logo KLK' width='44' height='44' viewBox='0 0 100 100'><circle cx='50' cy='58' r='33' fill='none' stroke='#FFFFFF' stroke-width='9'/><path d='M50 1 Q46 46 3 90 Q50 76 97 90 Q54 46 50 1 Z' fill='#FFFFFF' stroke='currentColor' stroke-width='6' stroke-linejoin='miter' paint-order='stroke'/><rect x='38' y='48' width='24' height='22' rx='4' fill='none' stroke='currentColor' stroke-width='2.2'/><text x='50' y='66.5' text-anchor='middle' font-family='Archivo, Arial, sans-serif' font-weight='800' font-size='15' fill='currentColor' letter-spacing='-0.8' transform='translate(50 59) scale(0.82 1.25) translate(-50 -59)'>KLK</text></svg></span><b>KLK</b><i></i><span>SWP Kebun Timur<br>Patok maturity</span></div>
+    <div class="code" style="font-size:clamp(72px,20vw,110px)">PR23–26</div></header>
+    <h2>Pilih blok</h2><div class="pick">${['PR23', 'PR24', 'PR25', 'PR26'].map(g => `<div><p>${g.slice(0, 2)} ${g.slice(2)}</p><nav>${B.filter(x => x.pr === g).map(x => `<a href="#blok-${x.b.toLowerCase()}" style="background:${x.col}">${x.b}</a>`).join('')}</nav></div>`).join('')}</div>
+    <footer><span>PT Steelindo Wahana Perkasa · KLK Group</span><span>Data per November 2026</span></footer>`;
+  requestAnimationFrame(() => requestAnimationFrame(() => app.classList.add('on')));
+}
+
+function route(){
+  const m = location.hash.match(/^#blok-(\w+)$/i);
+  const b = m && B.find(x => x.b.toLowerCase() === m[1].toLowerCase());
+  b ? view(b) : index();
+}
+window.addEventListener('hashchange', route);
+route();
+}
+</script>
+</body>
+</html>
