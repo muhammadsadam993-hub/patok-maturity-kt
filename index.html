@@ -17,7 +17,7 @@
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Archivo,system-ui,sans-serif;overflow-x:clip}
 .wrap{max-width:620px;margin:0 auto}
-.hero{position:relative;overflow:hidden;background:var(--pr);color:#fff;padding:22px 40px 26px;min-height:360px;display:flex;flex-direction:column;justify-content:space-between}
+.hero{position:relative;overflow:hidden;background:var(--pr);color:#fff;padding:22px 20px 26px;min-height:360px;display:flex;flex-direction:column;justify-content:space-between}
 .hero svg.topo{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .brand{position:relative;display:flex;align-items:center;gap:12px;font-weight:700;font-size:13px;line-height:1.3}
 .brand b{font:900 34px/1 "Big Shoulders Display",sans-serif;letter-spacing:1px}
@@ -29,17 +29,17 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Archivo,syste
 .status{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;background:#fff;color:#141414;font-weight:800;font-size:14px;padding:8px 12px}
 .status::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--sc,#d06a12);animation:pulse 1.6s infinite}
 @keyframes pulse{50%{transform:scale(1.6);opacity:.4}}
-.harvest{background:#141414;color:#fff;padding:22px 40px;display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:end}
+.harvest{background:#141414;color:#fff;padding:22px 20px;display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:end}
 .harvest .lbl{font-weight:800;font-size:15px;color:#fff}
 .harvest .big{grid-column:1/-1;font:900 clamp(64px,19vw,96px)/.9 "Big Shoulders Display",sans-serif;color:var(--gold)}
 .harvest .cd{font:600 15px/1.3 "IBM Plex Mono",monospace;color:#fff;border:2px solid var(--gold);padding:6px 10px;white-space:nowrap}
-.prog{padding:22px 40px 6px}
+.prog{padding:22px 20px 6px}
 .bar{position:relative;height:14px;background:var(--card);overflow:hidden}
 .bar span{position:absolute;inset:0 auto 0 0;width:0;background:linear-gradient(90deg,#b9bec5 0 var(--a),#d06a12 var(--a) var(--s),#d9a520 var(--s));transition:width 1.6s cubic-bezier(.3,.7,.2,1) .4s}
 .ptxt{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);margin-top:6px}
 .ptxt b{color:var(--ink)}
-h2{font-size:20px;line-height:1.1;margin:28px 40px 12px}
-.tl{position:relative;margin:0 40px;padding-left:34px}
+h2{font-size:20px;line-height:1.1;margin:28px 20px 12px}
+.tl{position:relative;margin:0 20px;padding-left:34px}
 .tl::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:4px;background:var(--line)}
 .tl .fill{position:absolute;left:11px;top:6px;width:4px;height:0;background:var(--ink);transition:height 1.8s cubic-bezier(.3,.7,.2,1) .5s}
 .st{position:relative;display:flex;justify-content:space-between;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);opacity:0;transform:translateX(16px);transition:.5s}
@@ -50,25 +50,25 @@ h2{font-size:20px;line-height:1.1;margin:28px 40px 12px}
 .st .n{font-weight:800;font-size:15px}.st .n small{display:block;font-weight:600;font-size:13px;color:var(--mut)}
 .st .d{font:600 15px "IBM Plex Mono",monospace;color:var(--c);white-space:nowrap}
 .st.now .d{background:var(--c);color:#fff;padding:2px 6px}
-.data{margin:0 40px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.data{margin:0 20px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
 .data div{background:var(--bg);padding:12px}
 .data span{display:block;font-size:13px;color:var(--mut);font-weight:600}
 .data b{font-size:20px;line-height:1.2}
 .data .w{grid-column:1/-1}
-.pick{margin:0 40px 30px;display:grid;gap:14px}
+.pick{margin:0 20px 30px;display:grid;gap:14px}
 .pick p{margin:0 0 6px;font-weight:800;font-size:14px}
 .pick nav{display:flex;flex-wrap:wrap;gap:8px}
 .pick a{display:inline-flex;align-items:center;justify-content:center;min-width:64px;min-height:44px;padding:0 12px;font:800 20px "Big Shoulders Display",sans-serif;color:#fff;text-decoration:none}
 .pick a[aria-current]{outline:3px solid var(--ink);outline-offset:2px}
 .pick a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-footer{padding:18px 40px 26px;border-top:3px solid var(--ink);font-size:13px;color:var(--mut);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.empty{margin:0 40px;padding:16px;background:var(--card);color:var(--mut)}
-.emb{color:var(--pr);display:inline-flex;line-height:0}.edge{position:fixed;top:0;bottom:0;width:34px;z-index:5;pointer-events:none;background:var(--band) repeat-y 0 0/34px auto}.edge.l{left:max(0px,calc(50% - 310px))}.edge.r{right:max(0px,calc(50% - 310px));transform:scaleX(-1)}footer{position:relative;border-top:0!important;color:#fff!important;background:var(--swoosh) no-repeat center bottom/100% 100%;padding-top:74px!important;min-height:150px;align-items:flex-end}@media(min-width:600px){.edge{width:44px;background-size:44px auto}}
+footer{padding:18px 20px 26px;border-top:3px solid var(--ink);font-size:13px;color:var(--mut);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.empty{margin:0 20px;padding:16px;background:var(--card);color:var(--mut)}
+.emb{color:var(--pr);display:inline-flex;line-height:0}footer{position:relative;border-top:0!important;color:#fff!important;background:var(--swoosh) no-repeat center bottom/100% 100%;padding-top:74px!important;min-height:150px;align-items:flex-end}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.code,.st{opacity:1;transform:none}}
 </style>
 </head>
 <body>
-<div class="edge l" aria-hidden="true"></div><div class="edge r" aria-hidden="true"></div><div class="wrap" id="app"></div>
+<div class="wrap" id="app"></div>
 <script>
 {
 const DG='#0E4D2A',LG='#2FA84F',FG='#5CC46A',S=Math.sin,C=Math.cos,PI=Math.PI,f=n=>n.toFixed(1),sv=(W,H,p)=>`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${p}</svg>`;
@@ -78,7 +78,7 @@ for(let i=0;i<n;i++){const t=.08+.9*i/(n-1),[bx,by]=pt(t),[ax,ay]=pt(Math.min(1,
 p+=`<path d="M${f(bx)} ${f(by)}Q${f(cx+nx)} ${f(cy+ny)} ${f(tx)} ${f(ty)}Q${f(cx-nx)} ${f(cy-ny)} ${f(bx)} ${f(by)}Z" fill="${(i+(sd>0?1:0))%2?FG:LG}"/><path d="M${f(bx+lx*L*.12)} ${f(by+ly*L*.12)}L${f(bx+lx*L*.85)} ${f(by+ly*L*.85)}" stroke="${DG}" stroke-width=".8" stroke-dasharray="2.4 1.8"/>`;}}return p;}
 function swoosh(W,H){const yb=40,bt=x=>yb+22*S(PI*x/W*1.15)-30*(x/W)**2.2;let a='M0 0',b='M0 0';for(let x=0;x<=W;x+=10){a+=` L${x} ${f(bt(x)-8)}`;b+=` L${x} ${f(bt(x))}`;}return sv(W,H,`<path d="${a} L${W} ${H} L0 ${H}Z" fill="${LG}"/><path d="${b} L${W} ${H} L0 ${H}Z" fill="${DG}"/>${frond(W-190,H+4,W-8,H-120,14,46)}${frond(150,H+4,8,H-100,10,38,1)}`);}
 const u=x=>`url("data:image/svg+xml,${encodeURIComponent(x)}")`,R=document.documentElement.style;
-R.setProperty('--band',u(band(190,40)));R.setProperty('--swoosh',u(swoosh(600,150)));
+R.setProperty('--swoosh',u(swoosh(600,150)));
 }
 
 {
@@ -86,8 +86,8 @@ const B = [{"pr": "PR23", "b": "23A", "tanam": "Feb 24", "abl": "Apr 25", "csi":
 const MI = {Jan:0,Feb:1,Mar:2,Apr:3,Mei:4,Jun:5,Jul:6,Agu:7,Sep:8,Okt:9,Nov:10,Des:11};
 const LONG = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
 const ix = s => (!s || s === '-') ? null : (2000 + +s.split(' ')[1]) * 12 + MI[s.split(' ')[0]];
-const longD = s => { const i = ix(s); return i == null ? '—' : LONG[i % 12] + ' ' + Math.floor(i / 12); };
-const nd = v => (v == null || v === '-' || v === '') ? '—' : v;
+const longD = s => { const i = ix(s); return i == null ? 'Belum tersedia' : LONG[i % 12] + ' ' + Math.floor(i / 12); };
+const nd = v => (v == null || v === '-' || v === '') ? 'Belum tersedia' : v;
 const now = new Date(); const NOW = now.getFullYear() * 12 + now.getMonth();
 const app = document.getElementById('app');
 
@@ -157,7 +157,7 @@ function view(b){
     <div class="w"><span>Clone</span><b>${b.clone}</b></div>
     <div><span>Jumlah pokok</span><b>${pk}</b></div>
     <div><span>Round ablasi</span><b>${nd(b.rnd)}</b></div>
-    <div><span>Periode ablasi</span><b>${b.abl !== '-' ? b.abl + ' – ' + (b.stop !== '-' ? b.stop : '…') : '—'}</b></div>
+    <div><span>Periode ablasi</span><b>${b.abl !== '-' ? b.abl + ' – ' + (b.stop !== '-' ? b.stop : 'belum tersedia') : 'Belum tersedia'}</b></div>
     <div><span>CSI · drone</span><b>${nd(b.csi)}</b></div>
     <div><span>Sanitasi pruning</span><b>${nd(b.prun)}</b></div>
     <div><span>NAA commercial</span><b>${nd(b.naa)}</b></div>
